@@ -1,0 +1,36 @@
+{
+  "@@last_modified": "2023-02-07T14:09:44.746367",
+  "@@locale": "en",
+  "@home": {
+    "description": "home text for demo app",
+    "type": "text"
+  },
+  "@login": {
+    "description": "login text",
+    "type": "text"
+  },
+  "@noDescription": {
+    "description": "no description",
+    "type": "text"
+  },
+  "@title": {
+    "description": "Title for demo app",
+    "type": "text"
+  },
+  "autp": "auto",
+  "cancel": "cancel",
+  "home": "Home",
+  "language": "language",
+  "login": "Login",
+  "logout": "logout",
+  "logoutTip": "Logout Tip",
+  "noDescription": "No Descriptoin",
+  "password": "password",
+  "passwordRequired": "password is required",
+  "theme": "theme",
+  "title": "Flutter APP",
+  "userName": "username",
+  "userNameOrPasswordWrong": "username or password wrong",
+  "userNameRequired": "username is required",
+  "yes": "yes"
+}
