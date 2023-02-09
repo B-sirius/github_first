@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -7,16 +8,10 @@ import "./cache.dart";
 import "./git.dart";
 
 // 主题色
-const _themes = <MaterialColor>[
-  Colors.blue,
-  Colors.cyan,
-  Colors.teal,
-  Colors.green,
-  Colors.red
-];
+const _themes = <MaterialColor>[Colors.blue, Colors.cyan, Colors.teal, Colors.green, Colors.red];
 
 class Global {
-  static late SharedPreferences _prefs;
+  static SharedPreferences? _prefs;
 
   static Profile profile = Profile();
 
@@ -30,13 +25,14 @@ class Global {
   static bool get isRelease => const bool.fromEnvironment("dart.vm.product");
 
   // 初始化全局信息，在App启动时执行
-  static Future init() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    _prefs = await SharedPreferences.getInstance();
-    var _profile = _prefs.getString("profile");
-    if (_profile != null) {
+  static Future init() async => _prefs = await SharedPreferences.getInstance();
+
+  static Future getProfile() {
+    final completer = Completer<String?>();
+    final myProfile = _prefs?.getString("profile");
+    if (myProfile != null) {
       try {
-        profile = Profile.fromJson(jsonDecode(_profile));
+        profile = Profile.fromJson(jsonDecode(myProfile));
       } catch (e) {
         print(e);
       }
@@ -54,11 +50,12 @@ class Global {
 
     print(_prefs);
     print('finished init');
-    return profile;
+    completer.complete(myProfile);
+    return completer.future;
   }
 
   // 持久化Profile信息
-  static saveProfile() {
-    _prefs.setString("profile", jsonEncode(profile.toJson()));
+  static saveProfile() async {
+    await _prefs?.setString("profile", jsonEncode(profile.toJson()));
   }
 }
