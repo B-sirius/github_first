@@ -8,7 +8,13 @@ import "./cache.dart";
 import "./git.dart";
 
 // 主题色
-const _themes = <MaterialColor>[Colors.blue, Colors.cyan, Colors.teal, Colors.green, Colors.red];
+const _themes = <MaterialColor>[
+  Colors.blue,
+  Colors.cyan,
+  Colors.teal,
+  Colors.green,
+  Colors.red
+];
 
 class Global {
   static SharedPreferences? _prefs;
@@ -55,7 +61,8 @@ class Global {
   }
 
   // 持久化Profile信息
-  static saveProfile() async {
-    await _prefs?.setString("profile", jsonEncode(profile.toJson()));
+  static saveProfile() {
+    // so why _prefs is null here?
+    _prefs?.setString("profile", jsonEncode(profile.toJson()));
   }
 }
