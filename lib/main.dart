@@ -10,7 +10,9 @@ import 'package:github_first/routes/login.dart';
 import 'package:github_first/routes/theme.dart';
 import 'package:github_first/routes/home_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Global.init();
   runApp(const MyApp());
 }
 
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: Global.init(),
+        future: Global.getProfile(),
         builder: (context, snapshot) {
           debugPrint(snapshot.connectionState.toString());
           if (snapshot.connectionState != ConnectionState.done) {

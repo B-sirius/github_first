@@ -7,8 +7,8 @@ import "package:github_first/models/user.dart";
 class ProfileChangeNotifier extends ChangeNotifier {
   Profile get _profile => Global.profile;
 
-  void notifyListeners() {
-    Global.saveProfile(); // 保存状态变更
+  void notifyListeners() async {
+    await Global.saveProfile(); // 保存状态变更
     super.notifyListeners(); // 通知依赖的Widget更新
   }
 }
@@ -31,9 +31,7 @@ class UserState extends ProfileChangeNotifier {
 
 // APP主题状态
 class ThemeState extends ProfileChangeNotifier {
-  ColorSwatch get theme =>
-      Global.themes.firstWhere((item) => item.value == _profile.theme,
-          orElse: () => Colors.blue);
+  ColorSwatch get theme => Global.themes.firstWhere((item) => item.value == _profile.theme, orElse: () => Colors.blue);
 
   set theme(ColorSwatch color) {
     if (color != theme && color[500] != null) {
