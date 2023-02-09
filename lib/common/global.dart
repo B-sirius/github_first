@@ -62,7 +62,6 @@ class Global {
 
   // 持久化Profile信息
   static saveProfile() {
-    // so why _prefs is null here?
     _prefs?.setString("profile", jsonEncode(profile.toJson()));
   }
 }
