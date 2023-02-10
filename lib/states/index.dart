@@ -31,7 +31,7 @@ class UserState extends ProfileChangeNotifier {
 
 // APP主题状态
 class ThemeState extends ProfileChangeNotifier {
-  ColorSwatch get theme =>
+  MaterialColor get theme =>
       Global.themes.firstWhere((item) => item.value == _profile.theme,
           orElse: () => Colors.blue);
 

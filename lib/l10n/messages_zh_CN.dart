@@ -24,7 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "cancel" : MessageLookupByLibrary.simpleMessage("取消"),
     "home" : MessageLookupByLibrary.simpleMessage("主页"),
     "language" : MessageLookupByLibrary.simpleMessage("语言"),
-    "login" : MessageLookupByLibrary.simpleMessage("登陆"),
+    "login" : MessageLookupByLibrary.simpleMessage("登录"),
     "logout" : MessageLookupByLibrary.simpleMessage("登出"),
     "logoutTip" : MessageLookupByLibrary.simpleMessage("登出提示"),
     "noDescription" : MessageLookupByLibrary.simpleMessage("没有描述"),

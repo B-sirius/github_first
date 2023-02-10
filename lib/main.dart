@@ -9,8 +9,10 @@ import 'package:github_first/routes/language.dart';
 import 'package:github_first/routes/login.dart';
 import 'package:github_first/routes/theme.dart';
 import 'package:github_first/routes/home_page.dart';
+import 'dart:io';
 
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
 
@@ -41,7 +43,7 @@ class MyApp extends StatelessWidget {
                 return MaterialApp(
                   builder: EasyLoading.init(),
                   theme: ThemeData(
-                    primaryColor: themeState.theme,
+                    primarySwatch: themeState.theme,
                   ),
                   onGenerateTitle: (context) {
                     return CustomLocalizations.of(context)?.title;
@@ -70,7 +72,7 @@ class MyApp extends StatelessWidget {
                         locale = _locale!;
                       } else {
                         //如果系统语言不是中文简体或美国英语，则默认使用美国英语
-                        locale = Locale('en', 'US');
+                        locale = const Locale('en', 'US');
                       }
                       return locale;
                     }
@@ -86,5 +88,14 @@ class MyApp extends StatelessWidget {
             ),
           );
         });
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

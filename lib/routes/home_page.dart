@@ -15,6 +15,18 @@ class HomeRoute extends StatefulWidget {
 }
 
 class _HomeRouteState extends State<HomeRoute> {
+  @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   static const loadingTag = "##loading##"; //表尾标记
   final _items = <Repo>[Repo()..name = loadingTag];
   bool hasMore = true; //是否还有数据
@@ -41,45 +53,48 @@ class _HomeRouteState extends State<HomeRoute> {
           onPressed: () => Navigator.of(context).pushNamed("login"),
         ),
       );
-    } else {
-      //已登录，则显示项目列表
-      return ListView.separated(
-        itemCount: _items.length,
-        itemBuilder: (context, index) {
-          //如果到了表尾
-          if (_items[index].name == loadingTag) {
-            //不足100条，继续获取数据
-            if (hasMore) {
-              //获取数据
-              _retrieveData();
-              //加载时显示loading
-              return Container(
-                padding: const EdgeInsets.all(16.0),
-                alignment: Alignment.center,
-                child: const SizedBox(
-                  width: 24.0,
-                  height: 24.0,
-                  child: CircularProgressIndicator(strokeWidth: 2.0),
-                ),
-              );
-            } else {
-              //已经加载了100条数据，不再获取数据。
-              return Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(16.0),
-                child: const Text(
-                  "没有更多了",
-                  style: TextStyle(color: Colors.grey),
-                ),
-              );
-            }
-          }
-          //显示单词列表项
-          return RepoItem(_items[index]);
-        },
-        separatorBuilder: (context, index) => const Divider(height: .0),
-      );
     }
+
+    //已登录，则显示项目列表
+
+    return ListView.separated(
+      itemCount: _items.length,
+      itemBuilder: (context, index) {
+        //如果到了表尾
+        if (_items[index].name == loadingTag) {
+          //不足100条，继续获取数据
+          if (hasMore) {
+            //获取数据
+            if (mounted) {
+              _retrieveData();
+            }
+            return Container(
+              padding: const EdgeInsets.all(16.0),
+              alignment: Alignment.center,
+              child: const SizedBox(
+                width: 24.0,
+                height: 24.0,
+                child: CircularProgressIndicator(strokeWidth: 2.0),
+              ),
+            );
+          }
+
+          //已经加载了100条数据，不再获取数据。
+          return Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.all(16.0),
+            child: const Text(
+              "没有更多了",
+              style: TextStyle(color: Colors.grey),
+            ),
+          );
+        }
+        //显示单词列表项
+
+        return RepoItem(_items[index]);
+      },
+      separatorBuilder: (context, index) => const Divider(height: .0),
+    );
   }
 
   //请求数据

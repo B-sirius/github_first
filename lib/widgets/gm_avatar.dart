@@ -4,11 +4,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 Widget gmAvatar(
   String url, {
   double width = 30,
-  double? height,
+  double? height = 30,
   BoxFit? fit,
   BorderRadius? borderRadius,
 }) {
-  var placeholder = Image.asset("imgs/batman-avatar.png", //头像占位图
+  var placeholder = Image.asset("imgs/avatar-default.png", //头像占位图
       width: width,
       height: height);
   return ClipRRect(

@@ -120,7 +120,7 @@ class _LoginRouteState extends State<LoginRoute> {
         }
       } finally {
         // 隐藏loading框
-        Navigator.of(context).pop();
+        EasyLoading.dismiss();
       }
       //登录成功则返回
       if (user != null) {

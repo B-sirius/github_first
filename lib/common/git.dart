@@ -44,11 +44,11 @@ class Git {
   }
 
   Future<User> login(String login, String pwd) async {
-    String basic = 'Basic ' + base64.encode(utf8.encode('$login:$pwd'));
+    String basic = 'Bearer $pwd';
     var r = await dio.get(
       "/user",
       options: _options.copyWith(headers: {
-        HttpHeaders.authorizationHeader: basic
+        'Authorization': basic
       }, extra: {
         "noCache": true, //本接口禁用缓存
       }),

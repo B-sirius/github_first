@@ -14,8 +14,6 @@ class HomeDrawer extends StatelessWidget {
     return Drawer(
       child: MediaQuery.removePadding(
         context: context,
-        // DrawerHeader consumes top MediaQuery padding.
-        removeTop: true,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -33,7 +31,7 @@ class HomeDrawer extends StatelessWidget {
         return GestureDetector(
           child: Container(
             color: Theme.of(context).primaryColor,
-            padding: const EdgeInsets.only(top: 40, bottom: 20),
+            padding: const EdgeInsets.only(top: 60, bottom: 20),
             child: Row(
               children: <Widget>[
                 Padding(
@@ -41,10 +39,13 @@ class HomeDrawer extends StatelessWidget {
                   child: ClipOval(
                     // 如果已登录，则显示用户头像；若未登录，则显示默认头像
                     child: value.isLogin
-                        ? gmAvatar(value.user!.avatar_url!, width: 80)
+                        ? gmAvatar(value.user!.avatar_url!,
+                            width: 80, height: 80)
                         : Image.asset(
                             "imgs/avatar-default.png",
                             width: 80,
+                            height: 80,
+                            fit: BoxFit.cover,
                           ),
                   ),
                 ),
